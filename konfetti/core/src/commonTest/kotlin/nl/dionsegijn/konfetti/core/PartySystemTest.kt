@@ -2,18 +2,22 @@ package nl.dionsegijn.konfetti.core
 
 import nl.dionsegijn.konfetti.core.emitter.Emitter
 import nl.dionsegijn.konfetti.core.models.CoreRect
-import nl.dionsegijn.konfetti.core.models.CoreRectImpl
-import org.junit.Assert
-import org.junit.Test
-import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.Mockito
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class PartySystemTest {
-    private val rect: CoreRect =
-        Mockito.mock(CoreRectImpl::class.java).apply {
-            Mockito.`when`(height).thenReturn(1000f)
-            Mockito.`when`(contains(anyInt(), anyInt())).thenReturn(true)
+    private val rect: CoreRect = object : CoreRect {
+        override var x: Float = 0f
+        override var y: Float = 0f
+        override var width: Float = 1000f
+        override var height: Float = 1000f
+
+        override fun contains(x: Int, y: Int): Boolean {
+            return true
         }
+    }
 
     // Average between for each frame
     private val deltaTime = 0.017f
@@ -26,17 +30,17 @@ class PartySystemTest {
             )
         val system = PartySystem(party, pixelDensity = 1f)
 
-        Assert.assertTrue(system.enabled)
-        Assert.assertFalse(system.isDoneEmitting())
+        assertTrue(system.enabled)
+        assertFalse(system.isDoneEmitting())
 
         val r1 = system.render(deltaTime, rect) // render 2, total deltaTime = 0.017f
-        Assert.assertEquals(0, r1.size) // Expected 0, Every 0.025ms a new particle should be created
+        assertEquals(0, r1.size) // Expected 0, Every 0.025ms a new particle should be created
 
         val r2 = system.render(deltaTime, rect) // render 2, total deltaTime = 2 * 0.017f = 0.034f
-        Assert.assertEquals(1, r2.size) // Expected 1, one for every 0.025ms
+        assertEquals(1, r2.size) // Expected 1, one for every 0.025ms
 
         val r3 = system.render(deltaTime, rect) // render 3, total deltaTime = 3 * 0.017f = 0.051f
-        Assert.assertEquals(2, r3.size) // expected 2, one for every 0.025ms
+        assertEquals(2, r3.size) // expected 2, one for every 0.025ms
     }
 
     @Test
@@ -47,22 +51,22 @@ class PartySystemTest {
             )
         val system = PartySystem(party, pixelDensity = 1f)
 
-        Assert.assertTrue(system.enabled)
-        Assert.assertFalse(system.isDoneEmitting())
+        assertTrue(system.enabled)
+        assertFalse(system.isDoneEmitting())
 
         val r1 = system.render(deltaTime, rect) // render 2, total deltaTime = 0.017f
-        Assert.assertEquals(0, r1.size) // Expected 0, Every 0.025ms a new particle should be created
+        assertEquals(0, r1.size) // Expected 0, Every 0.025ms a new particle should be created
 
         val r2 = system.render(deltaTime, rect) // render 2, total deltaTime = 2 * 0.017f = 0.034f
-        Assert.assertEquals(1, r2.size) // Expected 1, one for every 0.025ms
+        assertEquals(1, r2.size) // Expected 1, one for every 0.025ms
 
         // System set to false, emitter will no longer asked for new particles
         system.enabled = false
-        Assert.assertFalse(system.enabled)
+        assertFalse(system.enabled)
 
         // Should not longer create new particles even though time has passed
         val r3 = system.render(deltaTime, rect)
-        Assert.assertEquals(1, r3.size)
+        assertEquals(1, r3.size)
     }
 
     @Test
@@ -76,8 +80,7 @@ class PartySystemTest {
         val system = PartySystem(party, pixelDensity = 1f)
 
         // Set drawArea to 1 pixel to let every particle directly disappear for this test
-        Mockito.`when`(rect.height).thenReturn(1f)
-        Assert.assertTrue(system.enabled)
+        assertTrue(system.enabled)
 
         system.render(deltaTime, rect) // dt: 0.017f
         system.render(deltaTime, rect) // dt: 0.034f
@@ -86,12 +89,12 @@ class PartySystemTest {
         system.render(deltaTime, rect) // dt: 0.085f
 
         // should still run because emitter isn't done yet, total delta time is < 100ms
-        Assert.assertFalse(system.isDoneEmitting())
+        assertFalse(system.isDoneEmitting())
 
         system.render(deltaTime, rect) // dt: 0.102f // duration is higher than 100ms
 
-        Assert.assertEquals(0, system.getActiveParticleAmount())
-        Assert.assertTrue(system.isDoneEmitting())
+        assertEquals(0, system.getActiveParticleAmount())
+        assertTrue(system.isDoneEmitting())
     }
 
     @Test
@@ -110,7 +113,7 @@ class PartySystemTest {
 
         system.render(deltaTime, rect) // dt: 0.017f
         system.render(deltaTime, rect) // dt: 0.034f
-        Assert.assertEquals(1, system.getActiveParticleAmount())
+        assertEquals(1, system.getActiveParticleAmount())
 
         system.render(deltaTime, rect) // dt: 0.051f
         system.render(deltaTime, rect) // dt: 0.068f
@@ -119,6 +122,6 @@ class PartySystemTest {
 
         // All particles are created and one extra frame is executed to remove the last one
         system.render(deltaTime, rect) // dt: 0.119f
-        Assert.assertEquals(0, system.getActiveParticleAmount())
+        assertEquals(0, system.getActiveParticleAmount())
     }
 }

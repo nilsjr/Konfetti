@@ -1,11 +1,23 @@
 plugins {
-    id("java-library")
-    id("kotlin")
+    alias(libs.plugins.kotlin.multiplatform)
     id("com.diffplug.spotless")
 }
 
-NexusConfig.PUBLISH_ARTIFACT_ID = "konfetti-core"
-apply(from = "../../scripts/publish-module.gradle.kts")
+//NexusConfig.PUBLISH_ARTIFACT_ID = "konfetti-core"
+//apply(from = "../../scripts/publish-module.gradle.kts")
+
+kotlin {
+    jvm()
+
+    sourceSets {
+        commonMain.dependencies {
+
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
+    }
+}
 
 spotless {
     kotlin {
@@ -14,13 +26,7 @@ spotless {
     }
     java {
         removeUnusedImports()
-        googleJavaFormat("1.15.0")
+        googleJavaFormat("1.22.0")
         target("**/*.java")
     }
-}
-
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Constants.kotlinVersion}")
-    testImplementation(libs.test.junit)
-    testImplementation(libs.test.mockito)
 }

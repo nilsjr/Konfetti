@@ -5,24 +5,26 @@ import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.Rotation
 import nl.dionsegijn.konfetti.core.models.CoreRect
-import nl.dionsegijn.konfetti.core.models.CoreRectImpl
 import nl.dionsegijn.konfetti.core.models.Shape
 import nl.dionsegijn.konfetti.core.models.Size
 import nl.dionsegijn.konfetti.core.models.Vector
-import org.junit.Assert
-import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito
 import java.util.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class PartyEmitterTest {
-    private val drawArea: CoreRect =
-        Mockito.mock(CoreRectImpl::class.java).apply {
-            Mockito.`when`(height).thenReturn(1000f)
-            Mockito.`when`(width).thenReturn(1000f)
-            Mockito.`when`(contains(ArgumentMatchers.anyInt(), ArgumentMatchers.anyInt()))
-                .thenReturn(true)
+    private val drawArea: CoreRect = object : CoreRect {
+        override var x: Float = 0f
+        override var y: Float = 0f
+        override var width: Float = 1000f
+        override var height: Float = 1000f
+
+        override fun contains(x: Int, y: Int): Boolean {
+            return true
         }
+    }
 
     // Average time between for each frame
     private val deltaTime = 0.017f
@@ -57,24 +59,24 @@ class PartyEmitterTest {
         val emitter = PartyEmitter(party.emitter, 1f)
 
         val r1 = emitter.createConfetti(deltaTime, party, drawArea) // 0.017f
-        Assert.assertEquals(0, r1.size)
+        assertEquals(0, r1.size)
 
         val r2 = emitter.createConfetti(deltaTime, party, drawArea) // 0.034f
-        Assert.assertEquals(1, r2.size)
+        assertEquals(1, r2.size)
 
         val r3 = emitter.createConfetti(deltaTime, party, drawArea) // 0.051f
-        Assert.assertEquals(1, r3.size)
+        assertEquals(1, r3.size)
 
         val r4 = emitter.createConfetti(deltaTime, party, drawArea) // 0.068f
-        Assert.assertEquals(0, r4.size)
+        assertEquals(0, r4.size)
 
         val r5 = emitter.createConfetti(deltaTime, party, drawArea) // 0.085f
-        Assert.assertEquals(1, r5.size)
-        Assert.assertFalse(emitter.isFinished())
+        assertEquals(1, r5.size)
+        assertFalse(emitter.isFinished())
 
         val r6 = emitter.createConfetti(deltaTime, party, drawArea) // 0.102f
-        Assert.assertEquals(1, r6.size)
-        Assert.assertTrue(emitter.isFinished())
+        assertEquals(1, r6.size)
+        assertTrue(emitter.isFinished())
     }
 
     @Test
@@ -83,13 +85,13 @@ class PartyEmitterTest {
 
         val r1 = emitter.createConfetti(deltaTime, party, drawArea) // 0.017f
         with(r1.first()) {
-            Assert.assertEquals(Vector(100f, 100f), location)
-            Assert.assertEquals(6f, width)
-            Assert.assertEquals(Shape.Square, shape)
-            Assert.assertEquals(1000L, lifespan)
-            Assert.assertEquals(0.9f, damping)
-            Assert.assertEquals(5.6617184f, rotationSpeed2D)
-            Assert.assertEquals(0.804353f, rotationSpeed3D)
+            assertEquals(Vector(100f, 100f), location)
+            assertEquals(6f, width)
+            assertEquals(Shape.Square, shape)
+            assertEquals(1000L, lifespan)
+            assertEquals(0.9f, damping)
+            assertEquals(5.6617184f, rotationSpeed2D)
+            assertEquals(0.804353f, rotationSpeed3D)
         }
     }
 
@@ -105,8 +107,8 @@ class PartyEmitterTest {
             ) // 0.017f
 
         with(r1.first()) {
-            Assert.assertEquals(0.0f, rotationSpeed2D)
-            Assert.assertEquals(0.0f, rotationSpeed3D)
+            assertEquals(0.0f, rotationSpeed2D)
+            assertEquals(0.0f, rotationSpeed3D)
         }
     }
 
@@ -122,7 +124,7 @@ class PartyEmitterTest {
             ) // 0.017f
 
         with(r1.first()) {
-            Assert.assertEquals(Vector(500f, 500f), location)
+            assertEquals(Vector(500f, 500f), location)
         }
     }
 }
