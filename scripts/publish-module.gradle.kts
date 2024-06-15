@@ -30,6 +30,10 @@ val javadocJar by tasks.registering(Jar::class) {
     dependsOn(dokkaJavadocTask)
 }
 
+const val PUBLISH_GROUP_ID = "nl.dionsegijn"
+const val PUBLISH_VERSION = ""
+var PUBLISH_ARTIFACT_ID = ""
+
 val group = NexusConfig.PUBLISH_GROUP_ID
 val version = NexusConfig.PUBLISH_VERSION
 
