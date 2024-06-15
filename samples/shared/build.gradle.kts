@@ -1,14 +1,29 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.library)
+}
+
+kotlin {
+    jvmToolchain(17)
+
+    jvm()
+    androidTarget()
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(project(path = ":konfetti:core"))
+            }
+        }
+    }
 }
 
 android {
-    compileSdk = buildVersions.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = 21
-        targetSdk = buildVersions.targetSdk
+        targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -21,19 +36,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     namespace = "nl.dionsegijn.samples.shared"
-}
-
-dependencies {
-    implementation(project(path = ":konfetti:core"))
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcomat)
-    implementation(libs.android.material)
 }
