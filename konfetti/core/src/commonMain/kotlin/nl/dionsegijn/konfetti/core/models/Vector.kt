@@ -1,6 +1,9 @@
 package nl.dionsegijn.konfetti.core.models
 
-data class Vector(var x: Float = 0f, var y: Float = 0f) {
+data class Vector(
+    var x: Float = 0f,
+    var y: Float = 0f,
+) {
     fun add(v: Vector) {
         x += v.x
         y += v.y

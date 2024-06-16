@@ -89,7 +89,10 @@ sealed class Position {
      * @property x the x coordinate in pixels
      * @property y the y coordinate in pixels
      */
-    data class Absolute(val x: Float, val y: Float) : Position() {
+    data class Absolute(
+        val x: Float,
+        val y: Float,
+    ) : Position() {
         fun between(value: Absolute): Position = Between(this, value)
     }
 
@@ -104,7 +107,10 @@ sealed class Position {
      * @property x the relative x coordinate as a double
      * @property y the relative y coordinate as a double
      */
-    data class Relative(val x: Double, val y: Double) : Position() {
+    data class Relative(
+        val x: Double,
+        val y: Double,
+    ) : Position() {
         fun between(value: Relative): Position = Between(this, value)
     }
 
@@ -114,7 +120,10 @@ sealed class Position {
      * Example: Relative(0.0, 0.0).between(Relative(1.0, 0.0))
      * This will spawn confetti from the full width and top of the view
      */
-    internal data class Between(val min: Position, val max: Position) : Position()
+    internal data class Between(
+        val min: Position,
+        val max: Position,
+    ) : Position()
 }
 
 /**

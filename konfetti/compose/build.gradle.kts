@@ -1,11 +1,32 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("com.diffplug.spotless")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.spotless)
 }
 
-NexusConfig.PUBLISH_ARTIFACT_ID = "konfetti-compose"
-apply(from = "../../scripts/publish-module.gradle.kts")
+//NexusConfig.PUBLISH_ARTIFACT_ID = "konfetti-compose"
+//apply(from = "../../scripts/publish-module.gradle.kts")
+
+kotlin {
+    jvmToolchain(17)
+
+    androidTarget()
+    jvm()
+
+    applyDefaultHierarchyTemplate()
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.ui)
+
+            api(project(path = ":konfetti:core"))
+        }
+    }
+}
 
 spotless {
     kotlin {
@@ -14,27 +35,22 @@ spotless {
     }
     java {
         removeUnusedImports()
-        googleJavaFormat("1.15.0")
+        googleJavaFormat("1.22.0")
         target("**/*.java")
     }
 }
 
 android {
-    compileSdk = buildVersions.compileSdk
+    namespace = "nl.dionsegijn.konfetti.compose"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     defaultConfig {
         minSdk = 21
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -43,27 +59,4 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Constants.composeVersion
-    }
-    namespace = "nl.dionsegijn.konfetti.compose"
-}
-
-dependencies {
-    val composeVersion: String = Constants.composeVersion
-
-    debugApi(project(path = ":konfetti:core"))
-    releaseApi("nl.dionsegijn:konfetti-core:${Constants.konfettiVersion}")
-
-    implementation(libs.compose.foundation)
-    implementation(libs.compose.ui)
-
-    testImplementation(libs.test.junit)
-    androidTestImplementation(libs.test.junit.ext)
-    androidTestImplementation(libs.compose.ui)
 }

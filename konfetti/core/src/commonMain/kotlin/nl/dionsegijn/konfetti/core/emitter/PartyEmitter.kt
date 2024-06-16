@@ -161,26 +161,22 @@ class PartyEmitter(
     /**
      * Get a random shape from the list of shapes
      */
-    private fun getRandomShape(shapes: List<Shape>): Shape {
-        return shapes[random.nextInt(shapes.size)]
-    }
+    private fun getRandomShape(shapes: List<Shape>): Shape = shapes[random.nextInt(shapes.size)]
 
     /**
      * If the [duration] is 0 it's not set and not relevant
      * If the emitting time is set check if [elapsedTime] exceeded the emittingTime
      */
-    private fun isTimeElapsed(): Boolean {
-        return when (emitterConfig.emittingTime) {
+    private fun isTimeElapsed(): Boolean =
+        when (emitterConfig.emittingTime) {
             0L -> false
             else -> elapsedTime >= emitterConfig.emittingTime
         }
-    }
 
-    override fun isFinished(): Boolean {
-        return if (emitterConfig.emittingTime > 0L) {
+    override fun isFinished(): Boolean =
+        if (emitterConfig.emittingTime > 0L) {
             elapsedTime >= emitterConfig.emittingTime
         } else {
             false
         }
-    }
 }

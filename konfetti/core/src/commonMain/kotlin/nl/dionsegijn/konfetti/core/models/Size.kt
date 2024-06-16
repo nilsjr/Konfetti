@@ -8,7 +8,11 @@ package nl.dionsegijn.konfetti.core.models
  * is a percentage based on [mass]. The higher the variance the bigger the difference in mass between
  * each particle is. Default is 0.2f for a slight difference in mass for each particle.
  */
-data class Size(val sizeInDp: Int, val mass: Float = 5f, val massVariance: Float = 0.2f) {
+data class Size(
+    val sizeInDp: Int,
+    val mass: Float = 5f,
+    val massVariance: Float = 0.2f,
+) {
     init {
         require(mass != 0F) { "mass=$mass must be != 0" }
     }

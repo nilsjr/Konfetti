@@ -1,6 +1,6 @@
-package nl.dionsegijn.konfetti.xml.image
+package nl.dionsegijn.konfetti.compose.image
 
-import android.graphics.drawable.Drawable
+import androidx.compose.ui.graphics.painter.Painter
 import nl.dionsegijn.konfetti.core.models.CoreImageStore
 
 /**
@@ -14,16 +14,16 @@ import nl.dionsegijn.konfetti.core.models.CoreImageStore
  *
  * The ImageStore provides methods to store a Drawable and retrieve it using its reference.
  */
-class ImageStore : CoreImageStore<Drawable> {
-    private val images = mutableMapOf<Int, Drawable>()
+class ImageStore : CoreImageStore<Painter> {
+    private val images = mutableMapOf<Int, Painter>()
 
-    override fun storeImage(image: Drawable): Int {
+    override fun storeImage(image: Painter): Int {
         val id = image.hashCode()
         images[id] = image
         return id
     }
 
-    override fun getImage(id: Int): Drawable? {
+    override fun getImage(id: Int): Painter? {
         return images[id]
     }
 }

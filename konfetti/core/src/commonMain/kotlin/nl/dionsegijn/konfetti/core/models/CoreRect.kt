@@ -21,9 +21,7 @@ interface CoreRect {
     fun contains(
         px: Int,
         py: Int,
-    ): Boolean {
-        return px >= x && px <= x + width && py >= y && py <= y + height
-    }
+    ): Boolean = px >= x && px <= x + width && py >= y && py <= y + height
 }
 
 class CoreRectImpl(
@@ -44,7 +42,5 @@ class CoreRectImpl(
     override fun contains(
         px: Int,
         py: Int,
-    ): Boolean {
-        return super.contains(px, py)
-    }
+    ): Boolean = super.contains(px, py)
 }

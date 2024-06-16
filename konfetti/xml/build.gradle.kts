@@ -1,11 +1,11 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("com.diffplug.spotless")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.spotless)
 }
 
-NexusConfig.PUBLISH_ARTIFACT_ID = "konfetti-xml"
-apply(from = "../../scripts/publish-module.gradle.kts")
+//NexusConfig.PUBLISH_ARTIFACT_ID = "konfetti-xml"
+//apply(from = "../../scripts/publish-module.gradle.kts")
 
 spotless {
     kotlin {
@@ -14,13 +14,13 @@ spotless {
     }
     java {
         removeUnusedImports()
-        googleJavaFormat("1.15.0")
+        googleJavaFormat("1.22.0")
         target("**/*.java")
     }
 }
 
 android {
-    compileSdk = buildVersions.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -49,9 +49,7 @@ android {
 
 dependencies {
     debugApi(project(path = ":konfetti:core"))
-    releaseApi("nl.dionsegijn:konfetti-core:${Constants.konfettiVersion}")
-
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Constants.kotlinVersion}")
+    releaseApi("nl.dionsegijn:konfetti-core:${libs.versions.konfettiVersion}")
 
     testImplementation(libs.test.junit)
     testImplementation(libs.test.mockito)

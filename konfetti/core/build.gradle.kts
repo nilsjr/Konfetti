@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    id("com.diffplug.spotless")
+    alias(libs.plugins.spotless)
 }
 
 //NexusConfig.PUBLISH_ARTIFACT_ID = "konfetti-core"
@@ -21,7 +21,7 @@ kotlin {
 
 spotless {
     kotlin {
-        ktlint("1.1.0")
+        ktlint("1.3.0")
         target("src/**/*.kt")
     }
     java {

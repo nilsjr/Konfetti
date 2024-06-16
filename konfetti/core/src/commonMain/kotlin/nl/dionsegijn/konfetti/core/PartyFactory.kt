@@ -8,7 +8,9 @@ import nl.dionsegijn.konfetti.core.models.Size
  * Factory class to enable builder methods for Java implementations
  * See [Party] for documentation on the configuration settings
  */
-class PartyFactory(val emitter: EmitterConfig) {
+class PartyFactory(
+    val emitter: EmitterConfig,
+) {
     private var party: Party = Party(emitter = emitter)
 
     fun angle(angle: Int): PartyFactory {
@@ -61,7 +63,8 @@ class PartyFactory(val emitter: EmitterConfig) {
         party =
             party.copy(
                 position =
-                    Position.Absolute(minX, minY)
+                    Position
+                        .Absolute(minX, minY)
                         .between(Position.Absolute(maxX, maxY)),
             )
         return this

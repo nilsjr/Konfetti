@@ -15,16 +15,18 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class PartyEmitterTest {
-    private val drawArea: CoreRect = object : CoreRect {
-        override var x: Float = 0f
-        override var y: Float = 0f
-        override var width: Float = 1000f
-        override var height: Float = 1000f
+    private val drawArea: CoreRect =
+        object : CoreRect {
+            override var x: Float = 0f
+            override var y: Float = 0f
+            override var width: Float = 1000f
+            override var height: Float = 1000f
 
-        override fun contains(x: Int, y: Int): Boolean {
-            return true
+            override fun contains(
+                x: Int,
+                y: Int,
+            ): Boolean = true
         }
-    }
 
     // Average time between for each frame
     private val deltaTime = 0.017f

@@ -1,10 +1,10 @@
-package nl.dionsegijn.konfetti.xml.image
+package nl.dionsegijn.konfetti.compose.image
 
-import android.graphics.drawable.Drawable
+import androidx.compose.ui.graphics.painter.Painter
 import nl.dionsegijn.konfetti.core.models.CoreImage
 
 data class DrawableImage(
-    val drawable: Drawable,
+    val drawable: Painter,
     override val width: Int,
     override val height: Int,
 ) : CoreImage

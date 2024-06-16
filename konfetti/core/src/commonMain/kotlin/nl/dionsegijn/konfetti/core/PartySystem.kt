@@ -54,8 +54,8 @@ class PartySystem(
  * Convert a confetti object to a particle object with instructions on how to draw
  * the confetti to a canvas
  */
-fun Confetti.toParticle(): Particle {
-    return Particle(
+fun Confetti.toParticle(): Particle =
+    Particle(
         location.x,
         location.y,
         width,
@@ -66,4 +66,3 @@ fun Confetti.toParticle(): Particle {
         shape,
         alpha,
     )
-}

@@ -1,7 +1,5 @@
 package nl.dionsegijn.konfetti.compose
 
-import android.content.res.Resources
-import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,14 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
+import nl.dionsegijn.konfetti.compose.image.DrawableImage
+import nl.dionsegijn.konfetti.compose.image.ImageStore
 import nl.dionsegijn.konfetti.core.Particle
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.PartySystem
 import nl.dionsegijn.konfetti.core.models.CoreRectImpl
 import nl.dionsegijn.konfetti.core.models.ReferenceImage
 import nl.dionsegijn.konfetti.core.models.Shape
-import nl.dionsegijn.konfetti.xml.image.DrawableImage
-import nl.dionsegijn.konfetti.xml.image.ImageStore
 
 @Composable
 fun KonfettiView(
@@ -27,6 +26,8 @@ fun KonfettiView(
     parties: List<Party>,
     updateListener: OnParticleSystemUpdateListener? = null,
 ) {
+    val density = LocalDensity.current.density
+
     lateinit var partySystems: List<PartySystem>
 
     /**
@@ -54,7 +55,7 @@ fun KonfettiView(
             parties.map {
                 PartySystem(
                     party = storeImages(it, imageStore),
-                    pixelDensity = Resources.getSystem().displayMetrics.density,
+                    pixelDensity = density,
                 )
             }
         while (true) {
