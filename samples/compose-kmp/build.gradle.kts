@@ -16,6 +16,10 @@ kotlin {
             dependencies {
                 implementation(project(":konfetti:compose"))
                 implementation(project(":samples:shared"))
+
+                implementation(compose.components.resources)
+
+                implementation(libs.lifecycle.viewmodel.compose)
             }
         }
         val desktopMain by getting {

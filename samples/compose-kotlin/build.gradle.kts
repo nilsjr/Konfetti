@@ -1,7 +1,8 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("com.diffplug.spotless")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.kotlin.compose)
 }
 
 spotless {
@@ -11,17 +12,17 @@ spotless {
     }
     java {
         removeUnusedImports()
-        googleJavaFormat("1.15.0")
+        googleJavaFormat("1.22.0")
         target("**/*.java")
     }
 }
 
 android {
-    compileSdk = buildVersions.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = 21
-        targetSdk = buildVersions.targetSdk
+        targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -36,24 +37,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Constants.composeVersion
+        jvmTarget = "17"
     }
     namespace = "nl.dionsegijn.xml.compose"
 }
 
 dependencies {
-    val composeVersion: String = Constants.composeVersion
-
     implementation(project(path = ":konfetti:compose"))
     implementation(project(path = ":samples:shared"))
 
@@ -65,6 +58,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling)
     implementation(libs.compose.material)

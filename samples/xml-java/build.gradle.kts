@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.application")
-    id("com.diffplug.spotless")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.spotless)
 }
 
 spotless {
@@ -10,17 +10,17 @@ spotless {
     }
     java {
         removeUnusedImports()
-        googleJavaFormat("1.15.0")
+        googleJavaFormat("1.22.0")
         target("**/*.java")
     }
 }
 
 android {
-    compileSdk = buildVersions.compileSdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 17
-        targetSdk = buildVersions.targetSdk
+        minSdk = 21
+        targetSdk = libs.versions.targetSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
