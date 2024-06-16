@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,11 +18,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import nl.dionsegijn.konfetti.compose.KonfettiView
 import nl.dionsegijn.konfetti.compose.OnParticleSystemUpdateListener
+import nl.dionsegijn.konfetti.compose.image.ImageUtil
 import nl.dionsegijn.konfetti.core.PartySystem
-import nl.dionsegijn.konfetti.xml.image.ImageUtil
 import nl.dionsegijn.xml.compose.ui.theme.KonfettiTheme
 
 class ComposeActivity : ComponentActivity() {
@@ -48,7 +47,8 @@ fun KonfettiUI(viewModel: KonfettiViewModel = KonfettiViewModel()) {
     val state: KonfettiViewModel.State by viewModel.state.observeAsState(
         KonfettiViewModel.State.Idle,
     )
-    val drawable = AppCompatResources.getDrawable(LocalContext.current, R.drawable.ic_heart)
+    val painter = painterResource(R.drawable.ic_heart)
+
     when (val newState = state) {
         KonfettiViewModel.State.Idle -> {
             Column(
@@ -59,7 +59,7 @@ fun KonfettiUI(viewModel: KonfettiViewModel = KonfettiViewModel()) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Button(onClick = { viewModel.festive(ImageUtil.loadDrawable(drawable!!)) }) {
+                Button(onClick = { viewModel.festive(ImageUtil.loadDrawable(painter)) }) {
                     Text(
                         text = "Festive",
                     )

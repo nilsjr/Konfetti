@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 
 class Presets {
     companion object {
-        fun festive(): List<Party> {
+        fun festive(drawable: Shape.DrawableShape? = null): List<Party> {
             val party = Party(
                 speed = 30f,
                 maxSpeed = 50f,
@@ -20,7 +20,7 @@ class Presets {
                 angle = Angle.TOP,
                 spread = 45,
                 size = listOf(Size.SMALL, Size.LARGE, Size.LARGE),
-                shapes = listOfNotNull(Shape.Square, Shape.Circle),
+                shapes = listOfNotNull(Shape.Square, Shape.Circle, drawable),
                 timeToLive = 3000L,
                 rotation = Rotation(),
                 colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def),
