@@ -12,7 +12,7 @@ plugins {
 
 // Connect with the repository using properties from local.properties in the root of the project
 val properties = File(rootDir, "local.properties")
-if(properties.exists()) {
+if (properties.exists()) {
     val localProperties = properties.inputStream().use { java.util.Properties().apply { load(it) } }
     // Set up Sonatype repository
     nexusPublishing {
