@@ -9,6 +9,7 @@ import androidx.compose.runtime.withFrameMillis
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import nl.dionsegijn.konfetti.compose.image.DrawableImage
@@ -118,7 +119,7 @@ fun KonfettiView(
 
 /**
  * Transforms the shapes in the given [Party] object. If a shape is a [Shape.DrawableShape],
- * it replaces the [DrawableImage] with a [ReferenceImage] and stores the [Drawable] in the [ImageStore].
+ * it replaces the [DrawableImage] with a [ReferenceImage] and stores the [Painter] in the [ImageStore].
  *
  * @param party The Party object containing the shapes to be transformed.
  * @return A new Party object with the transformed shapes.
@@ -141,7 +142,7 @@ fun storeImages(
 }
 
 /**
- * Converts a [DrawableImage] to a [ReferenceImage] and stores the [Drawable] in the [ImageStore].
+ * Converts a [DrawableImage] to a [ReferenceImage] and stores the [Painter] in the [ImageStore].
  *
  * @param drawableImage The DrawableImage to be converted.
  * @return A ReferenceImage with the same dimensions as the DrawableImage and a reference to the stored Drawable.
