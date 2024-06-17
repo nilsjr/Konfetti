@@ -4,7 +4,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import nl.dionsegijn.konfetti.core.models.Shape
 
 object ImageUtil {
-
     fun loadDrawable(
         drawable: Painter,
         tint: Boolean = true,

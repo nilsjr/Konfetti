@@ -34,10 +34,7 @@ fun App() {
             when (val newState = state) {
                 KonfettiViewModel.State.Idle -> {
                     Column(
-                        modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight(),
+                        modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {

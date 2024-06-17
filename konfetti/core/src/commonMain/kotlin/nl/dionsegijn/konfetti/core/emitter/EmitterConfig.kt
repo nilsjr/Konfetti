@@ -1,9 +1,5 @@
 package nl.dionsegijn.konfetti.core.emitter
 
-import kotlin.math.roundToLong
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.convert
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
