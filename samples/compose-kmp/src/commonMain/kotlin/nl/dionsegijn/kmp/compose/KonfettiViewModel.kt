@@ -1,13 +1,12 @@
 package nl.dionsegijn.kmp.compose
 
-import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.models.Shape
 import nl.dionsegijn.samples.shared.Presets
 
-class KonfettiViewModel : ViewModel() {
+class KonfettiViewModel {
 
     private val _state = MutableStateFlow<State>(State.Idle)
     val state: StateFlow<State> = _state

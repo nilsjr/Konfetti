@@ -8,7 +8,7 @@ import nl.dionsegijn.konfetti.core.Spread
 import nl.dionsegijn.konfetti.core.emitter.Emitter
 import nl.dionsegijn.konfetti.core.models.Shape
 import nl.dionsegijn.konfetti.core.models.Size
-import java.util.concurrent.TimeUnit
+import kotlin.time.DurationUnit
 
 class Presets {
     companion object {
@@ -19,12 +19,12 @@ class Presets {
                 damping = 0.9f,
                 angle = Angle.TOP,
                 spread = 45,
-                size = listOf(Size.SMALL, Size.LARGE, Size.LARGE),
-                shapes = listOfNotNull(Shape.Square, Shape.Circle, drawable),
+                size = listOf(Size(50)),
+                shapes = listOfNotNull(drawable),
                 timeToLive = 3000L,
                 rotation = Rotation(),
-                colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def),
-                emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(30),
+                colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xFF0000),
+                emitter = Emitter(duration = 100, DurationUnit.MILLISECONDS).max(30),
                 position = Position.Relative(0.5, 1.0)
             )
 
@@ -34,19 +34,19 @@ class Presets {
                     speed = 55f,
                     maxSpeed = 65f,
                     spread = 10,
-                    emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(10),
+                    emitter = Emitter(duration = 100, DurationUnit.MILLISECONDS).max(10),
                 ),
                 party.copy(
                     speed = 50f,
                     maxSpeed = 60f,
                     spread = 120,
-                    emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(40),
+                    emitter = Emitter(duration = 100, DurationUnit.MILLISECONDS).max(40),
                 ),
                 party.copy(
                     speed = 65f,
                     maxSpeed = 80f,
                     spread = 10,
-                    emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(10),
+                    emitter = Emitter(duration = 100, DurationUnit.MILLISECONDS).max(10),
                 )
             )
         }
@@ -59,7 +59,7 @@ class Presets {
                     damping = 0.9f,
                     spread = 360,
                     colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def),
-                    emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(100),
+                    emitter = Emitter(duration = 100, DurationUnit.MILLISECONDS).max(100),
                     position = Position.Relative(0.5, 0.3)
                 )
             )
@@ -73,7 +73,7 @@ class Presets {
                 angle = Angle.RIGHT - 45,
                 spread = Spread.SMALL,
                 colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def),
-                emitter = Emitter(duration = 5, TimeUnit.SECONDS).perSecond(30),
+                emitter = Emitter(duration = 5, DurationUnit.SECONDS).perSecond(30),
                 position = Position.Relative(0.0, 0.5)
             )
 
@@ -95,7 +95,7 @@ class Presets {
                     angle = Angle.BOTTOM,
                     spread = Spread.ROUND,
                     colors = listOf(0xfce18a, 0xff726d, 0xf4306d, 0xb48def),
-                    emitter = Emitter(duration = 5, TimeUnit.SECONDS).perSecond(100),
+                    emitter = Emitter(duration = 5, DurationUnit.SECONDS).perSecond(100),
                     position = Position.Relative(0.0, 0.0).between(Position.Relative(1.0, 0.0))
                 )
             )

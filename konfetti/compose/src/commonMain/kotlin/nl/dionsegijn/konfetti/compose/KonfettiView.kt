@@ -16,6 +16,7 @@ import nl.dionsegijn.konfetti.compose.image.ImageStore
 import nl.dionsegijn.konfetti.core.Particle
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.PartySystem
+import nl.dionsegijn.konfetti.core.getSystemTimeInMillis
 import nl.dionsegijn.konfetti.core.models.CoreRectImpl
 import nl.dionsegijn.konfetti.core.models.ReferenceImage
 import nl.dionsegijn.konfetti.core.models.Shape
@@ -154,6 +155,6 @@ fun drawableToReferenceImage(
 }
 
 fun getTotalTimeRunning(startTime: Long): Long {
-    val currentTime = System.currentTimeMillis()
+    val currentTime = getSystemTimeInMillis()
     return (currentTime - startTime)
 }
