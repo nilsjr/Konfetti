@@ -1,5 +1,4 @@
 rootProject.name = "Konfetti"
-//enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 // Library modules
 include(
@@ -16,6 +15,7 @@ include(
     ":samples:shared",
 )
 
+// blocked due https://github.com/gradle/gradle/issues/16608
 //enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -38,4 +38,8 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }

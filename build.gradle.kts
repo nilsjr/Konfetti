@@ -28,8 +28,7 @@ if (properties.exists()) {
 
 /**
  * TODO:
- * - toml finish
  * - core tests
- * - sample ios, wasm
+ * - sample wasm
  * - update deps
  */
