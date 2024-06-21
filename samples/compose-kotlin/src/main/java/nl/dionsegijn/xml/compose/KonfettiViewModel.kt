@@ -43,9 +43,9 @@ class KonfettiViewModel : ViewModel() {
         _state.value = State.Idle
     }
 
-    sealed class State {
-        class Started(val party: List<Party>) : State()
+    sealed interface State {
+        data class Started(val party: List<Party>) : State
 
-        object Idle : State()
+        data object Idle : State
     }
 }

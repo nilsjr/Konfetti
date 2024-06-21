@@ -13,11 +13,14 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import nl.dionsegijn.konfetti.compose.KonfettiView
 import nl.dionsegijn.konfetti.compose.OnParticleSystemUpdateListener
@@ -48,6 +51,7 @@ fun KonfettiUI(viewModel: KonfettiViewModel = KonfettiViewModel()) {
         KonfettiViewModel.State.Idle,
     )
     val painter = painterResource(R.drawable.ic_heart)
+    val vector = rememberVectorPainter(Icons.Filled.Call)
 
     when (val newState = state) {
         KonfettiViewModel.State.Idle -> {
@@ -59,25 +63,17 @@ fun KonfettiUI(viewModel: KonfettiViewModel = KonfettiViewModel()) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Button(onClick = { viewModel.festive(ImageUtil.loadDrawable(painter)) }) {
-                    Text(
-                        text = "Festive",
-                    )
+                Button(onClick = { viewModel.festive(ImageUtil.loadDrawable(vector)) }) {
+                    Text(text = "Festive")
                 }
                 Button(onClick = { viewModel.explode() }) {
-                    Text(
-                        text = "Explode",
-                    )
+                    Text(text = "Explode")
                 }
                 Button(onClick = { viewModel.parade() }) {
-                    Text(
-                        text = "Parade",
-                    )
+                    Text(text = "Parade")
                 }
                 Button(onClick = { viewModel.rain() }) {
-                    Text(
-                        text = "Rain",
-                    )
+                    Text(text = "Rain")
                 }
             }
         }

@@ -19,7 +19,7 @@ class Presets {
                 damping = 0.9f,
                 angle = Angle.TOP,
                 spread = 45,
-                size = listOf(Size(50)),
+                size = listOf(Size(60)),
                 shapes = listOfNotNull(drawable),
                 timeToLive = 3000L,
                 rotation = Rotation(),

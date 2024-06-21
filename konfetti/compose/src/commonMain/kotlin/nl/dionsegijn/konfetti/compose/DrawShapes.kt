@@ -77,26 +77,6 @@ fun Shape.draw(
                             }
                         }
                     }
-
-                    // Making use of the ImageStore for performance reasons, see ImageStore for more info
-//                    if (tint) {
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//                            drawable.colorFilter = BlendModeColorFilter(particle.color, BlendMode.SRC_IN)
-//                        } else {
-//                            drawable.setColorFilter(particle.color, PorterDuff.Mode.SRC_IN)
-//                        }
-//                    } else if (applyAlpha) {
-//                        drawable.alpha = particle.alpha
-//                    }
-//
-//                    val size = particle.width
-//                    val height = (size * heightRatio).toInt()
-//                    val top = ((size - height) / 2f).toInt()
-//
-//                    val x = particle.y.toInt()
-//                    val y = particle.x.toInt()
-//                    drawable.setBounds(y, top + x, size.toInt() + y, top + height + x)
-//                    drawable.draw(it.nativeCanvas)
                 }
             }
         }

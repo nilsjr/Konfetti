@@ -110,7 +110,11 @@ fun KonfettiView(
                         pivot = Offset(particle.x + (particle.width / 2), particle.y),
                     )
                 }) {
-                    particle.shape.draw(drawScope = this, particle = particle, imageStore = imageStore)
+                    particle.shape.draw(
+                        drawScope = this,
+                        particle = particle,
+                        imageStore = imageStore,
+                    )
                 }
             }
         },

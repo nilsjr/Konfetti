@@ -1,14 +1,14 @@
 package nl.dionsegijn.konfetti.core.models
 
 sealed interface Shape {
-    object Circle : Shape {
+    data object Circle : Shape {
         // Default replacement for RectF
         val rect = CoreRectImpl()
     }
 
-    object Square : Shape
+    data object Square : Shape
 
-    class Rectangle(
+    data class Rectangle(
         /** The ratio of height to width. Must be within range [0, 1] */
         val heightRatio: Float,
     ) : Shape {
